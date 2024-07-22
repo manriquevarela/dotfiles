@@ -1,0 +1,146 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+let mapleader=" "
+
+"testing this setting:
+set ideavimsupport=+singleline,dialog
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+set ideajoin
+
+" search improve
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
+nnoremap <Esc> :nohlsearch<CR>
+
+
+" needs an ide reload
+set number relativenumber
+
+set showmode
+set showcmd
+
+set clipboard+=unnamed
+set scrolloff=5
+set history=1000
+set visualbell
+set smartcase
+set gdefault
+set notimeout
+set timeoutlen=5000
+
+
+
+
+" location
+nmap <C-i> <Action>(Back)
+nmap <C-o> <Action>(Forward)
+
+" continuous shift
+xnoremap < <gv
+xnoremap > >gv
+
+
+" Move selected line / block of text in visual mode
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
+
+nnoremap <c-d> <c-d>zz
+nnoremap <c-u> <c-u>zz
+
+sethandler <c-j> a:vim
+sethandler <c-v> a:vim
+sethandler <c-k> a:vim
+
+
+
+" terminal
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)
+nmap <leader>tc <Action>(Terminal.OpenInTerminal)
+
+" Menu
+nmap <leader>i <action>(Generate)
+nmap <space>b :action RecentFiles<cr>
+
+
+
+nmap <leader>mm :action MainMenu<CR>
+nmap <leader>ma :action AnalyzeMenu<CR>
+nmap <leader>mb :action BuildMenu<CR>
+nmap <leader>mc :action CodeMenu<CR>
+nmap <leader>mf :action FindMenuGroup<CR>
+nmap <leader>mg :action GoToMenu<CR>
+nmap <leader>ms :action ScopeViewPopupMenu<CR>
+nmap <leader>mt :action EditorTabPopupMenu<CR>
+nmap <leader>mw :action ToolWindowsGroup<CR>
+
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+"   gc{motion}              Comment or uncomment lines that {motion} moves over.
+"   gcc                     Comment or uncomment [count] lines.
+"   {Visual}gc              Comment or uncomment the highlighted lines.
+"   gc                      Text object for a comment (operator pending mode only.)
+"   gcgc                    Uncomment the current and adjacent commented lines.
+"   gcu
+Plug 'tpope/vim-commentary'
+
+" https://github.com/JetBrains/ideavim/blob/master/doc/NERDTree-support.md
+" o	Open files, directories and bookmarks	g:NERDTreeMapActivateNode
+" go	Open selected file, but leave cursor in the NERDTree	g:NERDTreeMapPreview
+" t	Open selected node/bookmark in a new tab	g:NERDTreeMapOpenInTab
+" T	Same as 't' but keep the focus on the current tab	g:NERDTreeMapOpenInTabSilent
+" i	Open selected file in a split window	g:NERDTreeMapOpenSplit
+" gi	Same as i, but leave the cursor on the NERDTree	g:NERDTreeMapPreviewSplit
+" s	Open selected file in a new vsplit	g:NERDTreeMapOpenVSplit
+" gs	Same as s, but leave the cursor on the NERDTree	g:NERDTreeMapPreviewVSplit
+" O	Recursively open the selected directory	g:NERDTreeMapOpenRecursively
+" x	Close the current nodes parent	g:NERDTreeMapCloseDir
+" X	Recursively close all children of the current node	g:NERDTreeMapCloseChildren
+" P	Jump to the root node	g:NERDTreeMapJumpRoot
+" p	Jump to current nodes parent	g:NERDTreeMapJumpParent
+" K	Jump up inside directories at the current tree depth	g:NERDTreeMapJumpFirstChild
+" J	Jump down inside directories at the current tree depth	g:NERDTreeMapJumpLastChild
+" <C-J>	Jump down to next sibling of the current directory	g:NERDTreeMapJumpNextSibling
+" <C-K>	Jump up to previous sibling of the current directory	g:NERDTreeMapJumpPrevSibling
+" r	Recursively refresh the current directory	g:NERDTreeMapRefresh
+" R	Recursively refresh the current root	g:NERDTreeMapRefreshRoot
+" m	Display the NERDTree menu	g:NERDTreeMapMenu
+" q	Close the NERDTree window	g:NERDTreeMapQuit
+" A	Zoom (maximize/minimize) the NERDTree window	g:NERDTreeMapToggleZoom
+" d	Delete file or directory	g:NERDTreeMapDelete
+" n	Create File	g:NERDTreeMapNewFile
+" N	Create Directory	g:NERDTreeMapNewDir
+Plug 'preservim/nerdtree'
+nmap <leader>e :NERDTreeToggle<CR>
+
+" Type s and two chars to start sneaking in forward direction
+" Type S and two chars to start sneaking in backward direction
+" Type ; or , to proceed with sneaking just as if you were using f or t commands
+Plug 'justinmk/vim-sneak'
+
+" https://github.com/tpope/vim-surround/blob/master/doc/surround.txt
+Plug 'tpope/vim-surround'
+
+
+Plug 'mg979/vim-visual-multi'
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq

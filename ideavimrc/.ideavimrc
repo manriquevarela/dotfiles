@@ -25,7 +25,7 @@ set incsearch
 set ignorecase
 set smartcase
 set hlsearch
-nnoremap <Esc> :nohlsearch<CR>
+" nnoremap <Esc> :nohlsearch<CR>
 
 
 " needs an ide reload
@@ -139,8 +139,25 @@ Plug 'justinmk/vim-sneak'
 " https://github.com/tpope/vim-surround/blob/master/doc/surround.txt
 Plug 'tpope/vim-surround'
 
+" Basic usage:
+"
+" select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
+" create cursors vertically with Ctrl-Down/Ctrl-Up
+" select one character at a time with Shift-Arrows
+" press n/N to get next/previous occurrence
+" press [/] to select next/previous cursor
+" press q to skip current and get next occurrence
+" press Q to remove current cursor/selection
+" start insert mode with i,a,I,A
+Plug 'mg979/vim-visual-multi' " New plugin but not available yet
+Plug 'terryma/vim-multiple-cursors' " Deprecated in favor of above
 
-Plug 'mg979/vim-visual-multi'
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq

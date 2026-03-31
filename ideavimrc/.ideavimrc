@@ -1,163 +1,341 @@
-" .ideavimrc is a configuration file for IdeaVim plugin. It uses
-"   the same commands as the original .vimrc configuration.
-" You can find a list of commands here: https://jb.gg/h38q75
-" Find more examples here: https://jb.gg/share-ideavimrc
-let mapleader=" "
+" ============================================================================
+" LazyVim-style IdeaVim Configuration
+" ============================================================================
 
-"testing this setting:
-set ideavimsupport=+singleline,dialog
-
-
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
-
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
-
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
-
-set ideajoin
-
-" search improve
+" Basic Settings
+" ============================================================================
+set scrolloff=5
 set incsearch
 set ignorecase
 set smartcase
-set hlsearch
-" nnoremap <Esc> :nohlsearch<CR>
-
-
-" needs an ide reload
-set number relativenumber
-
+set clipboard+=unnamed
+set number
+" set relativenumber
 set showmode
 set showcmd
-
-set clipboard+=unnamed
-set scrolloff=5
-set history=1000
-set visualbell
-set smartcase
-set gdefault
+set timeoutlen=800
 set notimeout
-set timeoutlen=5000
 
-
-
-
-" location
-nmap <C-i> <Action>(Back)
-nmap <C-o> <Action>(Forward)
-
-" continuous shift
-xnoremap < <gv
-xnoremap > >gv
-
-
-" Move selected line / block of text in visual mode
-xnoremap J :m '>+1<CR>gv=gv
-xnoremap K :m '<-2<CR>gv=gv
-
-nnoremap <c-d> <c-d>zz
-nnoremap <c-u> <c-u>zz
-
-sethandler <c-j> a:vim
-sethandler <c-v> a:vim
-sethandler <c-k> a:vim
-
-
-
-" terminal
-nmap <leader>tt <Action>(ActivateTerminalToolWindow)
-nmap <leader>tc <Action>(Terminal.OpenInTerminal)
-
-" Menu
-nmap <leader>i <action>(Generate)
-nmap <space>b :action RecentFiles<cr>
-
-
-
-nmap <leader>mm :action MainMenu<CR>
-nmap <leader>ma :action AnalyzeMenu<CR>
-nmap <leader>mb :action BuildMenu<CR>
-nmap <leader>mc :action CodeMenu<CR>
-nmap <leader>mf :action FindMenuGroup<CR>
-nmap <leader>mg :action GoToMenu<CR>
-nmap <leader>ms :action ScopeViewPopupMenu<CR>
-nmap <leader>mt :action EditorTabPopupMenu<CR>
-nmap <leader>mw :action ToolWindowsGroup<CR>
-
-
-" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
-
-" Highlight copied text
+" Enable IdeaVim Plugins
+" ============================================================================
 Plug 'machakann/vim-highlightedyank'
-" Commentary plugin
-"   gc{motion}              Comment or uncomment lines that {motion} moves over.
-"   gcc                     Comment or uncomment [count] lines.
-"   {Visual}gc              Comment or uncomment the highlighted lines.
-"   gc                      Text object for a comment (operator pending mode only.)
-"   gcgc                    Uncomment the current and adjacent commented lines.
-"   gcu
 Plug 'tpope/vim-commentary'
-
-" https://github.com/JetBrains/ideavim/blob/master/doc/NERDTree-support.md
-" o	Open files, directories and bookmarks	g:NERDTreeMapActivateNode
-" go	Open selected file, but leave cursor in the NERDTree	g:NERDTreeMapPreview
-" t	Open selected node/bookmark in a new tab	g:NERDTreeMapOpenInTab
-" T	Same as 't' but keep the focus on the current tab	g:NERDTreeMapOpenInTabSilent
-" i	Open selected file in a split window	g:NERDTreeMapOpenSplit
-" gi	Same as i, but leave the cursor on the NERDTree	g:NERDTreeMapPreviewSplit
-" s	Open selected file in a new vsplit	g:NERDTreeMapOpenVSplit
-" gs	Same as s, but leave the cursor on the NERDTree	g:NERDTreeMapPreviewVSplit
-" O	Recursively open the selected directory	g:NERDTreeMapOpenRecursively
-" x	Close the current nodes parent	g:NERDTreeMapCloseDir
-" X	Recursively close all children of the current node	g:NERDTreeMapCloseChildren
-" P	Jump to the root node	g:NERDTreeMapJumpRoot
-" p	Jump to current nodes parent	g:NERDTreeMapJumpParent
-" K	Jump up inside directories at the current tree depth	g:NERDTreeMapJumpFirstChild
-" J	Jump down inside directories at the current tree depth	g:NERDTreeMapJumpLastChild
-" <C-J>	Jump down to next sibling of the current directory	g:NERDTreeMapJumpNextSibling
-" <C-K>	Jump up to previous sibling of the current directory	g:NERDTreeMapJumpPrevSibling
-" r	Recursively refresh the current directory	g:NERDTreeMapRefresh
-" R	Recursively refresh the current root	g:NERDTreeMapRefreshRoot
-" m	Display the NERDTree menu	g:NERDTreeMapMenu
-" q	Close the NERDTree window	g:NERDTreeMapQuit
-" A	Zoom (maximize/minimize) the NERDTree window	g:NERDTreeMapToggleZoom
-" d	Delete file or directory	g:NERDTreeMapDelete
-" n	Create File	g:NERDTreeMapNewFile
-" N	Create Directory	g:NERDTreeMapNewDir
-Plug 'preservim/nerdtree'
-nmap <leader>e :NERDTreeToggle<CR>
-
-" Type s and two chars to start sneaking in forward direction
-" Type S and two chars to start sneaking in backward direction
-" Type ; or , to proceed with sneaking just as if you were using f or t commands
-Plug 'justinmk/vim-sneak'
-
-" https://github.com/tpope/vim-surround/blob/master/doc/surround.txt
 Plug 'tpope/vim-surround'
 
-" Basic usage:
-"
-" select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
-" create cursors vertically with Ctrl-Down/Ctrl-Up
-" select one character at a time with Shift-Arrows
-" press n/N to get next/previous occurrence
-" press [/] to select next/previous cursor
-" press q to skip current and get next occurrence
-" press Q to remove current cursor/selection
-" start insert mode with i,a,I,A
-Plug 'mg979/vim-visual-multi' " New plugin but not available yet
-Plug 'terryma/vim-multiple-cursors' " Deprecated in favor of above
+" Which-key plugin settings
+" Requires: https://plugins.jetbrains.com/plugin/15976-idea-which-key
+set which-key
+let g:WhichKey_ShowVimActions = "true"
+" Keep which-key menu open until command is complete or Esc is pressed
+" (notimeout disables auto-close timeout)
 
-nmap <C-n> <Plug>NextWholeOccurrence
-xmap <C-n> <Plug>NextWholeOccurrence
-nmap g<C-n> <Plug>NextOccurrence
-xmap g<C-n> <Plug>NextOccurrence
-xmap <C-x> <Plug>SkipOccurrence
-xmap <C-p> <Plug>RemoveOccurrence
+" Leader Key
+let mapleader=" "
 
-" Don't use Ex mode, use Q for formatting.
-map Q gq
+" ============================================================================
+" Keymaps
+" ============================================================================
+
+" General
+" ----------------------------------------------------------------------------
+nnoremap Q gq
+
+" Escape clears search highlight (LazyVim style)
+nnoremap <Esc> :nohlsearch<CR>
+
+" Better window navigation (LazyVim style)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Move lines up/down (LazyVim style)
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Better indenting (LazyVim style)
+vnoremap < <gv
+vnoremap > >gv
+
+" Find (LazyVim-style telescope equivalents)
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Find = "<leader>f +find"
+
+" Find files - LazyVim primary
+let g:WhichKeyDesc_Find_FilesSpace = "<leader><Space> find-files"
+nnoremap <leader><Space> :action GotoFile<CR>
+
+" Find files - alternative (Spacemacs/LazyVim compatible)
+let g:WhichKeyDesc_Find_Files = "<leader>ff find-files"
+nnoremap <leader>ff :action GotoFile<CR>
+
+" Find recent files (like Telescope oldfiles)
+let g:WhichKeyDesc_Find_Recent = "<leader>fr recent-files"
+nnoremap <leader>fr :action RecentFiles<CR>
+
+" Terminal (LazyVim style)
+let g:WhichKeyDesc_Find_Terminal = "<leader>ft terminal"
+nnoremap <leader>ft :action ActivateTerminalToolWindow<CR>
+
+" Toggle terminal (LazyVim C-/)
+nnoremap <C-/> :action ActivateTerminalToolWindow<CR>
+
+" Find in files - LazyVim primary
+let g:WhichKeyDesc_Find_GrepSlash = "<leader>/ grep"
+nnoremap <leader>/ :action FindInPath<CR>
+
+" Find in files - alternative
+let g:WhichKeyDesc_Find_Grep = "<leader>fg grep"
+nnoremap <leader>fg :action FindInPath<CR>
+
+" Save file
+let g:WhichKeyDesc_Find_Save = "<leader>fs save-file"
+nnoremap <leader>fs :action SaveDocument<CR>
+
+" Save all files
+let g:WhichKeyDesc_Find_SaveAll = "<leader>fS save-all-files"
+nnoremap <leader>fS :action SaveAll<CR>
+
+" Copy file path
+let g:WhichKeyDesc_Find_YankPath = "<leader>fy yank-file-path"
+nnoremap <leader>fy :action CopyAbsolutePath<CR>
+
+" Search (combining search + symbol operations)
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Search = "<leader>s +search"
+
+" Search in project (like Telescope live_grep)
+let g:WhichKeyDesc_Search_Project = "<leader>sp search-project"
+nnoremap <leader>sp :action FindInPath<CR>
+
+" Search symbol (swoop)
+let g:WhichKeyDesc_Search_Swoop = "<leader>ss swoop"
+nnoremap <leader>ss :action FindInPath<CR>
+
+" Clear search highlight
+let g:WhichKeyDesc_Search_Clear = "<leader>sc clear-highlight"
+nnoremap <leader>sc :nohlsearch<CR>
+
+" Rename symbol (like LSP rename)
+let g:WhichKeyDesc_Search_Rename = "<leader>sr rename-symbol"
+nnoremap <leader>sr :action RenameElement<CR>
+
+" Highlight symbol usages
+let g:WhichKeyDesc_Search_Highlight = "<leader>sh highlight-usages"
+nnoremap <leader>sh :action HighlightUsagesInFile<CR>
+
+" Find usages (like LSP references)
+let g:WhichKeyDesc_Search_References = "<leader>sR find-references"
+nnoremap <leader>sR :action FindUsages<CR>
+
+" Buffers (LazyVim-style)
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Buffers = "<leader>b +buffers"
+
+" LazyVim-style buffer navigation with Shift+h/l
+nnoremap <S-h> :action PreviousTab<CR>
+nnoremap <S-l> :action NextTab<CR>
+
+" Alternative buffer navigation with brackets
+nnoremap [b :action PreviousTab<CR>
+nnoremap ]b :action NextTab<CR>
+
+" Switch to other buffer (LazyVim style)
+let g:WhichKeyDesc_Buffers_Switch = "<leader>bb switch-buffer"
+nnoremap <leader>bb :action RecentFiles<CR>
+
+" Delete/close buffer
+let g:WhichKeyDesc_Buffers_Delete = "<leader>bd delete-buffer"
+nnoremap <leader>bd :action CloseContent<CR>
+
+" Close other buffers (LazyVim style)
+let g:WhichKeyDesc_Buffers_CloseOthers = "<leader>bo close-other-buffers"
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
+
+" Next buffer (Spacemacs style - keeping for compatibility)
+let g:WhichKeyDesc_Buffers_Next = "<leader>bn next-buffer"
+nnoremap <leader>bn :action NextTab<CR>
+
+" Previous buffer (Spacemacs style - keeping for compatibility)
+let g:WhichKeyDesc_Buffers_Previous = "<leader>bp previous-buffer"
+nnoremap <leader>bp :action PreviousTab<CR>
+
+" Reopen last closed buffer
+let g:WhichKeyDesc_Buffers_Reopen = "<leader>bu reopen-last-closed"
+nnoremap <leader>bu :action ReopenClosedTab<CR>
+
+" Copy whole buffer
+let g:WhichKeyDesc_Buffers_Copy = "<leader>by copy-buffer"
+nnoremap <leader>by :%y<CR>
+
+" New scratch buffer
+let g:WhichKeyDesc_Buffers_Scratch = "<leader>bs scratch-buffer"
+nnoremap <leader>bs :action NewScratchBuffer<CR>
+
+" Windows (LazyVim-style)
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Windows = "<leader>w +windows"
+
+" Split windows - LazyVim primary bindings
+let g:WhichKeyDesc_Windows_SplitBelowPipe = "<leader>- split-below"
+nnoremap <leader>- :action SplitHorizontally<CR>
+let g:WhichKeyDesc_Windows_SplitRightPipe = "<leader>| split-right"
+nnoremap <leader>| :action SplitVertically<CR>
+
+" Split windows - alternative (Spacemacs compatible)
+let g:WhichKeyDesc_Windows_SplitBelow = "<leader>ws split-below"
+nnoremap <leader>ws :action SplitHorizontally<CR>
+let g:WhichKeyDesc_Windows_SplitRight = "<leader>wv split-right"
+nnoremap <leader>wv :action SplitVertically<CR>
+
+" Close window (LazyVim style)
+let g:WhichKeyDesc_Windows_Close = "<leader>wd close-window"
+nnoremap <leader>wd :action CloseAllEditors<CR>
+
+" Navigate windows (vim-style - keeping for compatibility)
+let g:WhichKeyDesc_Windows_Left = "<leader>wh window-left"
+nnoremap <leader>wh <C-w>h
+let g:WhichKeyDesc_Windows_Down = "<leader>wj window-down"
+nnoremap <leader>wj <C-w>j
+let g:WhichKeyDesc_Windows_Up = "<leader>wk window-up"
+nnoremap <leader>wk <C-w>k
+let g:WhichKeyDesc_Windows_Right = "<leader>wl window-right"
+nnoremap <leader>wl <C-w>l
+
+" Maximize/zoom window (LazyVim style)
+let g:WhichKeyDesc_Windows_Maximize = "<leader>wm toggle-maximize"
+nnoremap <leader>wm :action MaximizeEditorInSplit<CR>
+
+" Next window
+let g:WhichKeyDesc_Windows_Next = "<leader>ww next-window"
+nnoremap <leader>ww :action NextSplitter<CR>
+
+" Project (LazyVim-style)
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Project = "<leader>p +project"
+
+"notimeout Find project files
+let g:WhichKeyDesc_Project_Files = "<leader>pf find-files"
+nnoremap <leader>pf :action GotoFile<CR>
+
+" Recent projects (like Telescope projects)
+let g:WhichKeyDesc_Project_Recent = "<leader>pp recent-projects"
+nnoremap <leader>pp :action ManageRecentProjects<CR>
+
+" Project tree / file explorer
+let g:WhichKeyDesc_Project_Tree = "<leader>pt project-tree"
+nnoremap <leader>pt :action ActivateProjectToolWindow<CR>
+let g:WhichKeyDesc_Project_Explorer = "<leader>e explorer"
+nnoremap <leader>e :action ActivateProjectToolWindow<CR>
+
+" Replace in project
+let g:WhichKeyDesc_Project_Replace = "<leader>pr replace-in-files"
+nnoremap <leader>pr :action ReplaceInPath<CR>
+
+" Toggle test file (like projectionist)
+let g:WhichKeyDesc_Project_Test = "<leader>pa toggle-test"
+nnoremap <leader>pa :action GotoTest<CR>
+
+" Compile project
+let g:WhichKeyDesc_Project_Compile = "<leader>pc compile"
+nnoremap <leader>pc :action CompileDirty<CR>
+
+" Git (LazyVim-style)
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Git = "<leader>g +git"
+
+" Git status
+let g:WhichKeyDesc_Git_Status = "<leader>gs git-status"
+nnoremap <leader>gs :action Vcs.Show.Local.Changes<CR>
+
+" Git blame
+let g:WhichKeyDesc_Git_Blame = "<leader>gb git-blame"
+nnoremap <leader>gb :action Annotate<CR>
+
+" Git log (current file)
+let g:WhichKeyDesc_Git_Log = "<leader>gl git-log"
+nnoremap <leader>gl :action Vcs.Show.Log<CR>
+
+" Git log (project)
+let g:WhichKeyDesc_Git_LogProject = "<leader>gL git-log-project"
+nnoremap <leader>gL :action Vcs.Show.Log<CR>
+
+" Git diff
+let g:WhichKeyDesc_Git_Diff = "<leader>gd git-diff"
+nnoremap <leader>gd :action Compare.SameVersion<CR>
+
+" Code Actions (LazyVim LSP-style)
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Code = "<leader>c +code"
+
+" Code action
+let g:WhichKeyDesc_Code_Action = "<leader>ca code-action"
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+
+" Format
+let g:WhichKeyDesc_Code_Format = "<leader>cf format"
+nnoremap <leader>cf :action ReformatCode<CR>
+
+" Rename
+let g:WhichKeyDesc_Code_Rename = "<leader>cr rename"
+nnoremap <leader>cr :action RenameElement<CR>
+
+" Comment (using vim-commentary)
+let g:WhichKeyDesc_Code_Comment = "<leader>c<Space> comment"
+nmap <leader>c<Space> gcc
+vmap <leader>c<Space> gc
+
+" Go to (LazyVim LSP-style)
+" ----------------------------------------------------------------------------
+" Go to definition
+nnoremap gd :action GotoDeclaration<CR>
+" Go to references
+nnoremap gr :action FindUsages<CR>
+" Go to implementation
+nnoremap gI :action GotoImplementation<CR>
+" Go to type definition
+nnoremap gy :action GotoTypeDeclaration<CR>
+" Hover documentation
+nnoremap K :action QuickJavaDoc<CR>
+
+" Diagnostics/Errors
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Errors = "<leader>e +errors"
+
+" Next error
+let g:WhichKeyDesc_Errors_Next = "<leader>en next-error"
+nnoremap <leader>en :action GotoNextError<CR>
+nnoremap ]d :action GotoNextError<CR>
+
+" Previous error
+let g:WhichKeyDesc_Errors_Previous = "<leader>ep previous-error"
+nnoremap <leader>ep :action GotoPreviousError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+
+" Show errors
+let g:WhichKeyDesc_Errors_List = "<leader>el list-errors"
+nnoremap <leader>el :action ActivateProblemsViewToolWindow<CR>
+
+" Settings
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Settings = "<leader>; +settings"
+
+" Reload config
+let g:WhichKeyDesc_Settings_Reload = "<leader>;r reload-config"
+nnoremap <leader>;r :source ~/.ideavimrc<CR>
+
+" Settings
+let g:WhichKeyDesc_Settings_Open = "<leader>;s settings"
+nnoremap <leader>;s :action ShowSettings<CR>
+
+" Quit
+" ----------------------------------------------------------------------------
+let g:WhichKeyDesc_Quit = "<leader>q +quit"
+
+let g:WhichKeyDesc_Quit_Quit = "<leader>qq quit"
+nnoremap <leader>qq :action Exit<CR>
+
+let g:WhichKeyDesc_Quit_CloseProject = "<leader>qp close-project"
+nnoremap <leader>qp :action CloseProject<CR>

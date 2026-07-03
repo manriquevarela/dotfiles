@@ -400,9 +400,6 @@ hl.window_rule({
   float = true,
   pin = true,
 })
--- hl.xwayland {
---   force_zero_scaling = true,
--- }
 
 -- Layer rules also return a handle.
 -- local overlayLayerRule = hl.layer_rule({

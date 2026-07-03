@@ -41,26 +41,29 @@
 
     sessionVariables = {
 
-      # Force applications to use the modern Intel driver for video decoding.
+      # Force applications to use the modern Intel driver for hardware video decoding
       LIBVA_DRIVER_NAME = "iHD";
-      # Forces Qt apps to look at the current desktop for styling
 
-      # Tells GTK4 and Libadwaita apps to prefer dark mode
+      # Force GTK4 and Libadwaita applications to prefer a dark color scheme
       GTK_THEME = "Adwaita-dark";
 
-      # Tells modern apps using XDG Desktop Portal to use dark mode
+      # Tell Qt applications to hand over theme and font management to the qt6ct UI tool
+      QT_QPA_PLATFORMTHEME = "qt6ct";
+
+      # Set the desktop environment identity so XDG Desktop Portals route files and dark mode rules correctly
       XDG_CURRENT_DESKTOP = "Hyprland";
 
-      # Tells QT apps to use the qt6ct configuration tool for styling
-      QT_QPA_PLATFORMTHEME = "qt6ct";
+      # Force Qt applications to run natively on Wayland instead of falling back to XWayland
       QT_QPA_PLATFORM = "wayland";
     };
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     systemPackages = with pkgs; [
-
+      kdePackages.qt6ct # Theme configuration tool for Qt6 apps like Dolphin/KTorrent
+      kdePackages.breeze # Provides the clean "Breeze Dark" theme and icons
       # -- apps
+
       kdePackages.ktorrent
       kdePackages.dolphin
 
@@ -207,15 +210,15 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "es_CR.UTF-8";
-    LC_IDENTIFICATION = "es_CR.UTF-8";
+    # LC_ADDRESS = "es_CR.UTF-8";
+    # LC_IDENTIFICATION = "es_CR.UTF-8";
     LC_MEASUREMENT = "es_CR.UTF-8";
     LC_MONETARY = "es_CR.UTF-8";
-    LC_NAME = "es_CR.UTF-8";
+    # LC_NAME = "es_CR.UTF-8";
     LC_NUMERIC = "es_CR.UTF-8";
     LC_PAPER = "es_CR.UTF-8";
     LC_TELEPHONE = "es_CR.UTF-8";
-    LC_TIME = "es_CR.UTF-8";
+    # LC_TIME = "es_CR.UTF-8";
   };
 
   services = {

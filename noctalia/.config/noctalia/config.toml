@@ -1,0 +1,129 @@
+[bar.default]
+background_opacity = 0.59999999999999998
+capsule = true
+center = [ "workspaces", "clock" ]
+end = [
+    "tray",
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "session",
+    "control-center"
+]
+margin_edge = 0
+margin_ends = 0
+radius = 0
+scale = 1.0700000000000001
+start = [ "launcher", "wallpaper", "active_window" ]
+
+[brightness]
+enable_ddcutil = true
+minimum_brightness = 0.13999999687075615
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@WAYLAND-1", "lockscreen-login-box@HDMI-A-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1280.0
+    cy = 1321.0
+    output = "DP-3"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1280.0
+    cy = 1321.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 320.0
+    cy = 241.0
+    output = "WAYLAND-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+[nightlight]
+enabled = true
+
+[shell]
+font_family = "JetBrainsMono Nerd Font Propo"
+lang = "en"
+settings_show_advanced = true
+
+    [shell.panel]
+    control_center_placement = "floating"
+    control_center_position = "top_right"
+
+[theme]
+builtin = "Catppuccin"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "builtin"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "hyprland", "kitty", "qt" ]
+
+[wallpaper]
+directory = "/home/manrique/Pictures/wallpaper"
+
+    [wallpaper.default]
+    path = "/home/manrique/Pictures/wallpaper/african-light.jpg"
+
+    [wallpaper.last]
+    path = "/home/manrique/Pictures/wallpaper/african-light.jpg"
+
+    [wallpaper.monitors.HDMI-A-1]
+    path = "/home/manrique/Pictures/wallpaper/african-light.jpg"
+
+[widget.active_window]
+title_scroll = "on_hover"
+
+[widget.clock]
+format = """{:%a %b %-d • %-I:%M}"""

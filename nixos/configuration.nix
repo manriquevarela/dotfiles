@@ -55,6 +55,8 @@
 
       # Force Qt applications to run natively on Wayland instead of falling back to XWayland
       QT_QPA_PLATFORM = "wayland";
+
+      PATH = [ "$HOME/.config/emacs/bin" ];
     };
 
     # List packages installed in system profile. To search, run:
@@ -128,6 +130,8 @@
       ddcutil
 
       pavucontrol
+
+      emacs-pgtk # Adds Emacs with native Wayland support
     ];
   };
 
@@ -255,6 +259,8 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    emacs.enable = true;
   };
 
   security = {

@@ -306,53 +306,98 @@ hl.device({
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Core binds
--- noctalia:
+-- noctalia panel controls:
+
+
+-- Capture a selected region (Binds to Print Screen key)
+hl.bind(mainMod .. "+ SHIFT + p", hl.dsp.exec_cmd(ipc .. " screenshot-region"))
+
+-- Toggle the application launcher panel
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(ipc .. " panel-toggle launcher"))
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(ipc .. " panel-toggle control-center"))
+
+hl.bind(mainMod .. " + s", hl.dsp.exec_cmd(ipc .. " panel-toggle control-center"))
+-- Toggle the global settings interface
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd(ipc .. " settings-toggle"))
 
--- hl.bind(mainMod .. " + a", hl.dsp.exec_cmd(ipc .. " panel-toggle session"))
+-- Toggle the session control menu (Log out, Reboot, Power off, Suspend)
+hl.bind(mainMod .. " + a", hl.dsp.exec_cmd(ipc .. " panel-toggle session"))
 
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
+-- Launch the default terminal emulator (Kitty)
+hl.bind(mainMod .. " + q", hl.dsp.exec_cmd(terminal))
+-- Close the currently active/focused window
+local closeWindowBind = hl.bind(mainMod .. " + c", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M",
+
+-- Trigger the shutdown UI helper if available, otherwise force quit the Hyprland compositor sessions
+hl.bind(mainMod .. " + m",
   hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+-- Launch the default graphical file manager
+hl.bind(mainMod .. " + e", hl.dsp.exec_cmd(fileManager))
+-- Toggle the active window between floating mode and tiling mode
+hl.bind(mainMod .. " + v", hl.dsp.window.float({ action = "toggle" }))
+-- Toggle pseudo-tiling mode (keeps the window sized as if it were floating but within a tile layout)
+hl.bind(mainMod .. " + p", hl.dsp.window.pseudo())
+
 -- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 
--- Move focus with mainMod + arrow keys
+-- Move focus with mainMod + Vim navigation keys
+-- Move focus to the window on the left
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+-- Move focus to the window on the right
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+-- Move focus to the window above
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+-- Move focus to the window below
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 
+
+
+-- Move the active window in a direction using Super + SHIFT + Vim keys
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
+
+
+
+-- Resize the active window using Super + ALT + Vim keys (repeats when held)
+hl.bind(mainMod .. " + ALT + h", hl.dsp.exec_raw("resizeactive -50 0"), { repeating = true })
+hl.bind(mainMod .. " + ALT + l", hl.dsp.exec_raw("resizeactive 50 0"), { repeating = true })
+hl.bind(mainMod .. " + ALT + k", hl.dsp.exec_raw("resizeactive 0 -50"), { repeating = true })
+hl.bind(mainMod .. " + ALT + j", hl.dsp.exec_raw("resizeactive 0 50"), { repeating = true })
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
   local key = i % 10 -- 10 maps to key 0
+  -- Pressing SUPER + [Number] switches your view to that specific workspace
   hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+  -- Pressing SUPER + SHIFT + [Number] moves your active window directly onto that workspace
   hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
--- Media keys
+-- Media and Hardware Keys
+-- Increase default system volume via Noctalia IPC
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. " volume-up"))
+-- Decrease default system volume via Noctalia IPC
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. " volume-down"))
+-- Toggle default audio output mute status via Noctalia IPC
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. " volume-mute"))
+-- Increase laptop screen backlight brightness via Noctalia IPC
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. " brightness-up"))
+-- Decrease laptop screen backlight brightness via Noctalia IPC
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. " brightness-down"))
 
 
--- Hold SUPER + Left Mouse Button to drag the window anywhere
+-- Mouse Window Controls
+-- Hold SUPER and drag with the Left Mouse Button (LMB) to float and reposition any window
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 
--- Hold SUPER + Right Mouse Button to resize the window
+-- Hold SUPER and drag with the Right Mouse Button (RMB) to quickly resize any window
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------

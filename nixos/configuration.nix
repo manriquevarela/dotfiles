@@ -39,6 +39,10 @@
       fi
     '';
 
+    extraInit = ''
+      export PATH="$HOME/.config/emacs/bin:$PATH"
+    '';
+
     sessionVariables = {
 
       # Force applications to use the modern Intel driver for hardware video decoding
@@ -56,7 +60,6 @@
       # Force Qt applications to run natively on Wayland instead of falling back to XWayland
       QT_QPA_PLATFORM = "wayland";
 
-      PATH = [ "$HOME/.config/emacs/bin" ];
     };
 
     # List packages installed in system profile. To search, run:
@@ -132,6 +135,8 @@
       pavucontrol
 
       emacs-pgtk # Adds Emacs with native Wayland support
+      pandoc # Markdown compiler engine
+      shellcheck # Shell script linter engine
     ];
   };
 
@@ -357,6 +362,10 @@
     corefonts
 
     nerd-fonts.jetbrains-mono
+
+    symbola
+    nerd-fonts.symbols-only
+
   ];
 
   system.stateVersion = "25.11";

@@ -36,7 +36,7 @@ hl.monitor({
 
 -- Set programs that you use
 local terminal    = "kitty"
-local fileManager = "dolphin"
+local fileManager = "yazi"
 local ipc         = "noctalia msg"
 
 
@@ -324,7 +324,6 @@ hl.bind(mainMod .. " + a", hl.dsp.exec_cmd(ipc .. " panel-toggle session"))
 
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
--- Launch the default terminal emulator (Kitty)
 hl.bind(mainMod .. " + q", hl.dsp.exec_cmd(terminal))
 -- Close the currently active/focused window
 local closeWindowBind = hl.bind(mainMod .. " + c", hl.dsp.window.close())
@@ -334,7 +333,8 @@ local closeWindowBind = hl.bind(mainMod .. " + c", hl.dsp.window.close())
 hl.bind(mainMod .. " + m",
   hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 -- Launch the default graphical file manager
-hl.bind(mainMod .. " + e", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + e", hl.dsp.exec_cmd(terminal .. " " .. fileManager), { description = "Open Yazi File Manager" }) --
+
 -- Toggle the active window between floating mode and tiling mode
 hl.bind(mainMod .. " + v", hl.dsp.window.float({ action = "toggle" }))
 -- Toggle pseudo-tiling mode (keeps the window sized as if it were floating but within a tile layout)

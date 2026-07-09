@@ -70,7 +70,8 @@
       # -- apps
 
       kdePackages.ktorrent
-      kdePackages.dolphin
+      # kdePackages.dolphin
+      yazi
 
       # ---
       stow
